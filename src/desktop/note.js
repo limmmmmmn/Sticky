@@ -51,6 +51,13 @@ ed.set(note?.html || '');
 document.title = firstLine(note?.html || '') || '메모';
 if (ed.isBlank()) ed.focusEnd();
 
+// 글 아래 빈 곳(여백)을 눌러도 끝에 커서가 가게
+$('#scroll').addEventListener('mousedown', (e) => {
+  if (e.target.id !== 'scroll') return;
+  e.preventDefault();
+  ed.focusEnd();
+});
+
 function save() {
   clearTimeout(timer);
   timer = null;

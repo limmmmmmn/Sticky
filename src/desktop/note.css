@@ -46,6 +46,7 @@ body[data-platform="win32"] .hbtn.close:hover { background: #E81123; color: #fff
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  cursor: text;
   padding: 12px 16px 16px;
 }
 .editor { min-height: 100%; }

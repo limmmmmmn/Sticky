@@ -20,6 +20,13 @@ body {
   overflow-wrap: anywhere;
 }
 button { font: inherit; color: inherit; }
+input, textarea { cursor: text; }
+
+/* 윈도우는 맥처럼 글자 획을 도톰하게 그려 주지 않아서 Pretendard 기본 굵기가 가늘어 보여.
+   윈도우에서만 한 단계(500) 올려. 맥은 SF가 잡혀서 그대로 둬. */
+body[data-platform="win32"] { font-weight: 500; }
+body[data-platform="win32"] :is(.field, .link, .search input, kbd) { font-weight: 500; }
+body[data-platform="win32"] .editor :is(b, strong) { font-weight: 750; }
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-thumb { border: 3px solid transparent; border-radius: 10px; background: rgba(128, 128, 128, .35) padding-box; }
 ::-webkit-scrollbar-thumb:hover { background-color: rgba(128, 128, 128, .55); }

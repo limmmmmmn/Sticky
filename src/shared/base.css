@@ -68,6 +68,7 @@
   overflow-wrap: anywhere;
   word-break: keep-all;
   line-height: 1.5;
+  cursor: text;
   -webkit-user-select: text;
   user-select: text;
 }
