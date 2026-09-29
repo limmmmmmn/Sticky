@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com">
+<link rel="stylesheet" href="list.css">
+<title>Sticky</title>
+<script type="module" src="list.js"></script>
+</head>
+<body>
+  <div class="home">
+    <header class="titlebar">
+      <h1 class="title">메모</h1>
+      <div class="tb-actions">
+        <button class="tbtn tint" id="new" title="새 메모" aria-label="새 메모" data-icon="plus"></button>
+        <button class="tbtn tint" id="settingsBtn" title="설정" aria-label="설정" data-icon="sliders"></button>
+        <span class="winctl">
+          <button class="tbtn" data-act="min" title="최소화" aria-label="최소화" data-icon="minimize"></button>
+          <button class="tbtn close" data-act="hide" title="닫기" aria-label="닫기" data-icon="close"></button>
+        </span>
+      </div>
+    </header>
+    <div class="searchwrap">
+      <label class="search"><span data-icon="search"></span><input id="search" type="search" placeholder="검색" autocomplete="off" spellcheck="false"></label>
+    </div>
+    <div class="update" id="update" hidden></div>
+    <main class="notes" id="list"></main>
+    <div class="empty" id="empty" hidden></div>
+    <button class="syncbar" id="syncbar"></button>
+  </div>
+
+  <section class="panel" id="settings" hidden aria-label="설정">
+    <header class="titlebar">
+      <button class="back" id="back"><span data-icon="chevronLeft"></span>메모</button>
+      <h1 class="title small">설정</h1>
+      <div class="tb-actions">
+        <span class="winctl">
+          <button class="tbtn" data-act="min" title="최소화" aria-label="최소화" data-icon="minimize"></button>
+          <button class="tbtn close" data-act="hide" title="닫기" aria-label="닫기" data-icon="close"></button>
+        </span>
+      </div>
+    </header>
+    <div class="panel-body">
+      <h2 class="sec">동기화</h2>
+      <div id="account"></div>
+
+      <h2 class="sec">일반</h2>
+      <div class="group">
+        <label class="row switch-row">
+          <div class="row-main"><div class="row-title plain">로그인할 때 자동 실행</div><div class="row-sub" id="autostartNote" hidden></div></div>
+          <input type="checkbox" class="switch" id="autostart">
+        </label>
+      </div>
+
+      <h2 class="sec">단축키</h2>
+      <div class="group keys" id="keys"></div>
+
+      <p class="about" id="about"></p>
+    </div>
+  </section>
+
+  <div class="pop" id="pop" hidden></div>
+</body>
+</html>

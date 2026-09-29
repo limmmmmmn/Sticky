@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'">
+<link rel="stylesheet" href="note.css">
+<title>메모</title>
+<script type="module" src="note.js"></script>
+</head>
+<body>
+  <header class="bar">
+    <button class="hbtn" id="new" title="새 메모" aria-label="새 메모" data-icon="plus"></button>
+    <div class="spacer"></div>
+    <button class="hbtn" id="pin" title="항상 위에 두기" aria-label="항상 위에 두기" aria-pressed="false"></button>
+    <button class="hbtn" id="more" title="메뉴" aria-label="메뉴" aria-expanded="false" data-icon="more"></button>
+    <button class="hbtn close" id="close" title="닫기" aria-label="닫기" data-icon="close"></button>
+  </header>
+
+  <main class="scroll" id="scroll"><div id="editor"></div></main>
+  <footer class="toolbar" id="tools"></footer>
+
+  <div class="menu" id="menu" role="menu" hidden>
+    <div class="swatches" id="swatches" role="radiogroup" aria-label="메모 색"></div>
+    <div class="menu-sep"></div>
+    <button class="menu-item" id="openList" role="menuitem"><span data-icon="list"></span>메모 목록</button>
+    <button class="menu-item danger" id="delete" role="menuitem"><span data-icon="trash"></span>메모 삭제</button>
+  </div>
+
+  <div class="confirm" id="confirm" hidden>
+    <div class="confirm-box" role="alertdialog" aria-label="메모 삭제">
+      <p>이 메모를 삭제할까요?</p>
+      <div class="confirm-actions">
+        <button class="cbtn" id="cancelDelete">취소</button>
+        <button class="cbtn danger" id="confirmDelete">삭제</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

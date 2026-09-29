@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Sticky">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="%APP_CSS%">
+<title>Sticky</title>
+<script type="module" src="%APP_JS%"></script>
+</head>
+<body>
+  <div class="view home" id="home">
+    <header class="nav" id="nav">
+      <span class="nav-title">메모</span>
+      <button class="nav-btn" id="syncBtn" aria-label="동기화 설정"></button>
+    </header>
+    <div class="scroller" id="scroller">
+      <h1 class="large-title">메모</h1>
+      <div class="install" id="install" hidden>
+        <b>홈 화면에 추가해서 앱처럼 쓰세요</b>
+        <span>사파리 아래 <em>공유</em> 버튼 → <em>홈 화면에 추가</em></span>
+        <button class="install-x" id="installX" aria-label="닫기" data-icon="close"></button>
+      </div>
+      <label class="search"><span data-icon="search"></span><input id="search" type="search" placeholder="검색" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="search"></label>
+      <main class="grid" id="grid"></main>
+      <div class="empty" id="empty" hidden></div>
+    </div>
+    <footer class="bottombar">
+      <span class="spacer"></span>
+      <span class="count" id="count"></span>
+      <button class="compose" id="compose" aria-label="새 메모" data-icon="compose"></button>
+    </footer>
+  </div>
+
+  <section class="view editor-view" id="editorView" hidden aria-label="메모 편집">
+    <header class="ed-nav">
+      <button class="back" id="back"><span data-icon="chevronLeft"></span>메모</button>
+      <span class="spacer"></span>
+      <button class="nav-btn" id="colorBtn" aria-label="색 바꾸기"><span class="dot"></span></button>
+      <button class="nav-btn" id="moreBtn" aria-label="더 보기" data-icon="more"></button>
+    </header>
+    <div class="colors" id="colors" hidden></div>
+    <div class="ed-scroll" id="edScroll">
+      <p class="ed-date" id="edDate"></p>
+      <div id="editor"></div>
+    </div>
+    <footer class="kbar" id="kbar">
+      <div class="kbar-tools" id="tools"></div>
+      <button class="kbar-done" id="done">완료</button>
+    </footer>
+  </section>
+
+  <div class="layer" id="layer" hidden></div>
+  <div class="toast" id="toast" hidden></div>
+</body>
+</html>
