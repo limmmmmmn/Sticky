@@ -146,9 +146,57 @@ export function createEditor(el, { tools, onChange, placeholder = '메모를 입
     emit();
   }
   el.addEventListener('mousedown', (e) => {
-    const li = checkAt(e.target, e.clientX);
-    if (li) { e.preventDefault(); toggle(li); }
+    const li = e.button === 0 && checkAt(e.target, e.clientX);
+    // 그냥 누르면 체크, 누른 채로 끌면 거기서부터 글 선택
+    if (li) dragSelect(e, { onClick: () => toggle(li) });
   });
+
+  // ── 글자 밖에서 시작하는 드래그 선택 ─────────────
+  // 윈도우 스티커 메모처럼 여백이나 체크박스 옆에서 누르고 끌어도 가장 가까운 글자부터 선택돼.
+  function caretNear(x, y) {
+    const r = el.getBoundingClientRect();
+    const cx = Math.min(Math.max(x, r.left + 1), r.right - 2);
+    const cy = Math.min(Math.max(y, r.top + 1), r.bottom - 2);
+    const hit = document.caretRangeFromPoint?.(cx, cy);
+    if (hit && el.contains(hit.startContainer)) return [hit.startContainer, hit.startOffset];
+    return [el, el.childNodes.length];
+  }
+  function dragSelect(e, { onClick } = {}) {
+    e.preventDefault();
+    const s = selection();
+    const scroller = el.parentElement;
+    const x0 = e.clientX;
+    const y0 = e.clientY;
+    let anchor = null;
+    let moved = false;
+    const start = () => {
+      el.focus({ preventScroll: true });
+      anchor = e.shiftKey && s.rangeCount && el.contains(s.anchorNode)
+        ? [s.anchorNode, s.anchorOffset]
+        : caretNear(x0, y0);
+    };
+    const extend = (x, y) => {
+      const [node, offset] = caretNear(x, y);
+      s.setBaseAndExtent(anchor[0], anchor[1], node, offset);
+    };
+    if (!onClick) { start(); extend(x0, y0); }
+    const move = (ev) => {
+      if (!moved && Math.hypot(ev.clientX - x0, ev.clientY - y0) < 4) return;
+      if (!anchor) start();
+      moved = true;
+      extend(ev.clientX, ev.clientY);
+      const r = scroller.getBoundingClientRect();
+      if (ev.clientY < r.top) scroller.scrollTop -= 14;
+      else if (ev.clientY > r.bottom) scroller.scrollTop += 14;
+    };
+    const up = () => {
+      document.removeEventListener('mousemove', move);
+      document.removeEventListener('mouseup', up);
+      if (!moved) onClick?.();
+    };
+    document.addEventListener('mousemove', move);
+    document.addEventListener('mouseup', up);
+  }
   let touch = null;
   el.addEventListener('touchstart', (e) => {
     const t = e.touches[0];
@@ -266,6 +314,7 @@ export function createEditor(el, { tools, onChange, placeholder = '메모를 입
       refreshTools();
     },
     focusEnd() { restoreRange(null); },
+    dragSelect,
     isBlank: blank,
   };
 }

@@ -51,11 +51,10 @@ ed.set(note?.html || '');
 document.title = firstLine(note?.html || '') || '메모';
 if (ed.isBlank()) ed.focusEnd();
 
-// 글 아래 빈 곳(여백)을 눌러도 끝에 커서가 가게
+// 여백(글 왼쪽·위·아래)을 누르거나 끌어도 가장 가까운 글자부터 커서·선택이 시작되게
 $('#scroll').addEventListener('mousedown', (e) => {
-  if (e.target.id !== 'scroll') return;
-  e.preventDefault();
-  ed.focusEnd();
+  if (e.button !== 0 || ed.el.contains(e.target)) return;
+  ed.dragSelect(e);
 });
 
 function save() {
